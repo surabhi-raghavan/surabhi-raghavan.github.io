@@ -671,10 +671,16 @@ pre > code {
   }
 
   .pub-venue {
-    font-style: italic;
-    font-size: 0.95em;
-    color: #666;
-    margin-bottom: 0.5em;
+    background: yellow;
+    font-size: 0.8em;
+    color: red;
+
+    a {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 0.85em;
+      margin-left: 0.5em;
+    }
 
     .pub-link {
       font-style: normal;
