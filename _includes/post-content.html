@@ -1,0 +1,21 @@
+<div class="publication-entry">
+  {% if post.title %}
+  <h3 class="pub-title">{{ post.title }}</h3>
+  {% endif %} {% if post.author_html %}
+  <p class="pub-authors">{{ post.author_html }}</p>
+  {% endif %} {% if post.venue %}
+  <p class="pub-venue">
+    {{ post.venue | markdownify }} {% if post.external_link_url %}
+    <a href="{{ post.external_link_url }}" target="_blank" class="pub-link">
+      {{ post.external_link_text | default: "View" }}
+    </a>
+    {% endif %}
+  </p>
+  {% endif %} {% if post.summary %}
+  <ul class="pub-summary">
+    {% for point in post.summary %}
+    <li>{{ point }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
