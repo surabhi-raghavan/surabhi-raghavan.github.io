@@ -1,6 +1,5 @@
 @charset "UTF-8";
 /*!
-* Start Bootstrap - Portfolio-website v1.0.2 (https://e-choness.github.io/portfolio-site)
 * Copyright 2013-2025 undefined
 * Licensed under MIT (https://github.com/StartBootstrap/portfolio-site/blob/master/LICENSE)
 */
@@ -11204,7 +11203,7 @@ footer {
   font-size: 1.5rem;
 }
 .subheading span {
-  color: #343a40;
+  color: #a63446;
 }
 
 #sideNav {
@@ -11276,23 +11275,25 @@ footer {
   margin-right: 0;
 }
 .social-icons .social-icon:hover {
-  background-color: #755686;
+  background-color: #429ea6;
 }
 
 .dev-icons .dev-icon {
   display: inline-flex;
+  /* flex-wrap: wrap; */
   align-items: center;
   justify-content: center;
   height: 3.5rem;
   width: 3.5rem;
   font-size: 3rem;
   margin-right: 1.5rem;
+  color: #595a4a;
 }
 .dev-icons .dev-icon:last-child {
   margin-right: 0;
 }
 .dev-icons .dev-icon:hover {
-  color: #755686;
+  color: #429ea6;
 }
 
 .custom-popover {
@@ -11306,7 +11307,7 @@ footer {
 
 .bg {
   animation: slide 14s ease-in-out infinite alternate;
-  background-image: linear-gradient(-60deg, #dfaeb4 20.5%, #e2e1b9 50%);
+  background-image: linear-gradient(-60deg, #dfaeb4 20.5%, #edffd9 20%);
   bottom: 0;
   left: -50%;
   opacity: 0.5;
@@ -11483,10 +11484,19 @@ section.resume-section {
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 5rem;
+  margin-top: 0rem;
+  padding-top: 1rem;
   padding-bottom: 5rem;
   max-width: 75rem;
 }
+section.resume-section#skills {
+  display: block !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+  min-height: unset !important;
+  padding-top: 2rem !important;
+}
+
 section.resume-section a {
   text-decoration: none;
 }
@@ -11503,12 +11513,16 @@ section.resume-section .subheading {
   color: #755686;
 }
 section.resume-section .resume-section-content-sills {
-  color: #718e4c;
+  color: #595A4A;
 }
 section.resume-section .img-profile {
   max-width: 5rem;
   max-height: 5rem;
   border: 0.3rem solid rgba(113, 142, 76, 0.6);
+}
+
+#skills {
+  padding-top: 1rem !important;
 }
 
 @media (min-width: 768px) {
@@ -11520,7 +11534,12 @@ section.resume-section .img-profile {
   section.resume-section {
     padding-left: 3rem;
     padding-right: 3rem;
-    padding-top: 5rem;
+    padding-top: 1rem;
     padding-bottom: 5rem;
   }
+}
+
+.intro-fixed {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
 }
