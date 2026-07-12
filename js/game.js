@@ -318,4 +318,9 @@
     });
   });
 
+  // When navigating back from a subpage, clear the black fade
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) fadeEl.classList.remove('visible');
+  });
+
 })();
