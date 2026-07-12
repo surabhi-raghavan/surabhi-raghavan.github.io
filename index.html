@@ -13,15 +13,28 @@
 
 <!-- HUD -->
 <div id="hud-title">✦ SURABHI'S WORLD · Software Engineer Lv.24 ✦</div>
-<div id="hud-controls">
-  <div class="ctrl-keys"><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span><span class="ctrl-sep"> or </span><span class="key">↑↓←→</span></div>
-  <span class="ctrl-label">Move</span>
-  <div class="ctrl-keys"><span class="key">E</span><span class="ctrl-sep"> / </span><span class="key">Enter ↵</span></div>
-  <span class="ctrl-label">Enter building</span>
-  <div class="ctrl-keys"><span class="key">Q</span><span class="ctrl-sep"> / </span><span class="key">Esc</span></div>
-  <span class="ctrl-label">Exit page</span>
-  <div class="ctrl-keys"><span class="key">M</span></div>
-  <span class="ctrl-label">Toggle music</span>
+
+<!-- Controls overlay (centered on load, collapses to corner button) -->
+<div id="controls-overlay">
+  <div id="controls-modal">
+    <div id="controls-modal-title">HOW TO PLAY</div>
+    <div id="hud-controls">
+      <div class="ctrl-keys"><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span><span class="ctrl-sep"> or </span><span class="key">↑↓←→</span></div>
+      <span class="ctrl-label">Move around</span>
+      <div class="ctrl-keys"><span class="key">E</span><span class="ctrl-sep"> / </span><span class="key">Enter ↵</span></div>
+      <span class="ctrl-label">Enter building</span>
+      <div class="ctrl-keys"><span class="key">Q</span><span class="ctrl-sep"> / </span><span class="key">Esc</span></div>
+      <span class="ctrl-label">Exit page</span>
+      <div class="ctrl-keys"><span class="key">M</span></div>
+      <span class="ctrl-label">Toggle music</span>
+    </div>
+    <button id="controls-dismiss">Got it! ✦ Let's go</button>
+  </div>
+</div>
+
+<!-- Collapsed corner button (shown after dismissing) -->
+<div id="controls-wrap" hidden>
+  <button id="controls-toggle" title="Controls">?</button>
 </div>
 <div id="location-toast"></div>
 <div id="prompt"></div>
@@ -45,8 +58,41 @@
 </div>
 
 <script src="js/mapRenderer.js?v=12"></script>
-<script src="js/game.js?v=13"></script>
+<script src="js/game.js?v=14"></script>
 <script src="js/music.js"></script>
 <script src="js/sfx.js"></script>
+<script>
+  (function() {
+    var overlay  = document.getElementById('controls-overlay');
+    var wrap     = document.getElementById('controls-wrap');
+    var modal    = document.getElementById('controls-modal');
+    var dismiss  = document.getElementById('controls-dismiss');
+    var toggle   = document.getElementById('controls-toggle');
+    var panel    = document.getElementById('hud-controls');
+
+    function close() {
+      overlay.classList.add('dismissed');
+      wrap.removeAttribute('hidden');
+      localStorage.setItem('ctrl-seen', '1');
+    }
+    function open() {
+      overlay.classList.remove('dismissed');
+      wrap.setAttribute('hidden', '');
+    }
+
+    // Skip modal if already seen
+    if (localStorage.getItem('ctrl-seen')) {
+      overlay.classList.add('dismissed');
+      wrap.removeAttribute('hidden');
+    }
+
+    dismiss.addEventListener('click', function(e) { e.stopPropagation(); close(); });
+    toggle.addEventListener('click',  function(e) { e.stopPropagation(); open();  });
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function(e) {
+      if (!overlay.classList.contains('dismissed') && (e.key === 'Escape' || e.key === 'Enter')) close();
+    });
+  })();
+</script>
 </body>
 </html>
