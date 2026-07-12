@@ -13,18 +13,25 @@
 
 <!-- HUD -->
 <div id="hud-title">✦ SURABHI'S WORLD · Software Engineer Lv.24 ✦</div>
-<div id="hud-controls">▲▼◄► / WASD — Move &nbsp;|&nbsp; E / Enter — Enter &nbsp;|&nbsp; Click — Interact</div>
+<div id="hud-controls">
+  <div class="ctrl-keys"><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span><span class="ctrl-sep"> or </span><span class="key">↑↓←→</span></div>
+  <span class="ctrl-label">Move</span>
+  <div class="ctrl-keys"><span class="key">E</span><span class="ctrl-sep"> / </span><span class="key">Enter ↵</span></div>
+  <span class="ctrl-label">Enter building</span>
+  <div class="ctrl-keys"><span class="key">Q</span><span class="ctrl-sep"> / </span><span class="key">Esc</span></div>
+  <span class="ctrl-label">Exit page</span>
+  <div class="ctrl-keys"><span class="key">M</span></div>
+  <span class="ctrl-label">Toggle music</span>
+</div>
 <div id="location-toast"></div>
 <div id="prompt"></div>
 
-<!-- GAME CANVAS (map drawn here) -->
-<canvas id="game-canvas"></canvas>
-
-<!-- PLAYER CANVAS (redrawn each frame) -->
-<canvas id="player-canvas"></canvas>
-
-<!-- HTML text overlays (crisp at any scale) -->
-<div id="labels-container"></div>
+<!-- Canvas wrapper — letterboxes to 16:9 on any screen -->
+<div id="canvas-wrap">
+  <canvas id="game-canvas"></canvas>
+  <canvas id="player-canvas"></canvas>
+  <div id="labels-container"></div>
+</div>
 <div id="player-name-tag">Surabhi</div>
 <div id="dog-name-tag">Buddy</div>
 

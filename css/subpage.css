@@ -434,12 +434,15 @@ body.subpage {
   margin-bottom: 0.6rem;
 }
 .pub-title {
+  display: block;
   font-family: 'Pixelify Sans', monospace;
   font-size: 0.9rem;
   color: var(--dark-brown);
   margin-bottom: 0.5rem;
   line-height: 1.5;
+  text-decoration: none;
 }
+a.pub-title:hover { color: var(--earth-brown); text-decoration: underline; }
 .pub-authors {
   font-size: 0.8rem;
   color: var(--earth-brown);

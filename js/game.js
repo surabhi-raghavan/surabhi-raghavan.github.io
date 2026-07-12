@@ -260,6 +260,7 @@
     if ((e.key==='e'||e.key==='E'||e.key==='Enter') && currentBuilding) {
       enterBuilding(Object.assign({},currentBuilding,{page:PAGES[currentBuilding.id]}));
     }
+    if (e.key==='m'||e.key==='M') { if (window.MUSIC) window.MUSIC.toggle(); }
     if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].indexOf(e.key)!==-1) e.preventDefault();
   });
   document.addEventListener('keyup', function(e){ delete keys[e.key]; });

@@ -133,6 +133,11 @@
     if (playing) stopMusic(); else startMusic();
   });
 
+  window.MUSIC = {
+    toggle: function() { if (playing) stopMusic(); else startMusic(); },
+    isPlaying: function() { return playing; }
+  };
+
   // ── Autoplay: try immediately, resume on first gesture ───────────────────
   function onGesture() {
     if (gestureReceived) return;
