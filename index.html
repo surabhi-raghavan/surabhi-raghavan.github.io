@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surabhi Raghavan · Portfolio</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+
+<div id="fade" class="visible"></div>
+
+<!-- HUD -->
+<div id="hud-title">✦ SURABHI'S WORLD · Software Engineer Lv.24 ✦</div>
+<div id="hud-controls">▲▼◄► / WASD — Move &nbsp;|&nbsp; E / Enter — Enter &nbsp;|&nbsp; Click — Interact</div>
+<div id="location-toast"></div>
+<div id="prompt"></div>
+
+<!-- GAME CANVAS (map drawn here) -->
+<canvas id="game-canvas"></canvas>
+
+<!-- PLAYER CANVAS (redrawn each frame) -->
+<canvas id="player-canvas"></canvas>
+
+<!-- HTML text overlays (crisp at any scale) -->
+<div id="labels-container"></div>
+<div id="player-name-tag">Surabhi</div>
+<div id="dog-name-tag">Buddy</div>
+
+<!-- Mobile D-Pad -->
+<div id="dpad">
+  <button id="dpad-up">▲</button>
+  <button id="dpad-down">▼</button>
+  <button id="dpad-left">◄</button>
+  <button id="dpad-right">►</button>
+  <button id="dpad-enter">E</button>
+</div>
+
+<script src="js/mapRenderer.js?v=12"></script>
+<script src="js/game.js?v=13"></script>
+<script src="js/music.js"></script>
+<script src="js/sfx.js"></script>
+</body>
+</html>

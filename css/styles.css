@@ -1,0 +1,1041 @@
+/* ══════════════════════════════════════════════════════
+   STARDEW VALLEY GAME UI — PORTFOLIO
+   Palette: parchment · dark-brown · forest-green · golden
+══════════════════════════════════════════════════════ */
+
+:root {
+  --parchment:    #fef6e4;
+  --cream:        #fffbf0;
+  --warm-tan:     #f3d5a3;
+  --dark-brown:   #3d2b1f;
+  --earth-brown:  #8b6349;
+  --forest-green: #4a7c59;
+  --bright-green: #7bc67e;
+  --golden:       #d4a843;
+  --golden-dark:  #a67c1e;
+  --brick-red:    #c0664a;
+  --panel-border: 3px solid var(--dark-brown);
+  --pixel-shadow: 4px 4px 0px var(--dark-brown);
+  --sidebar-w:    17rem;
+}
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: var(--dark-brown);
+  background-color: var(--parchment);
+  padding-left: var(--sidebar-w);
+  margin: 0;
+}
+
+h1,h2,h3,h4 { font-family: 'Pixelify Sans', monospace; }
+
+a { color: var(--forest-green); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--brick-red); }
+
+ul { padding-left: 1.2rem; }
+ul li { margin-bottom: 0.35rem; }
+ul li::marker { color: var(--golden); }
+
+.gold  { color: var(--golden-dark) !important; font-weight: 700; }
+.green { color: var(--forest-green); }
+
+/* ════════════════════════════════════════
+   ANIMATED BACKGROUND
+════════════════════════════════════════ */
+.bg {
+  animation: bg-drift 16s ease-in-out infinite alternate;
+  background-image: linear-gradient(-45deg, #fef6e4 0%, #f3d5a3 35%, #fef6e4 65%, #e8f5e0 100%);
+  position: fixed; inset: 0; left: -50%; right: -50%;
+  opacity: 0.65; z-index: -1;
+}
+.bg2 {
+  animation-direction: alternate-reverse; animation-duration: 20s;
+  background-image: linear-gradient(-60deg, #fff8e7 0%, #f5e6c8 45%, #e8f5e0 100%);
+  opacity: 0.35;
+}
+.bg3 {
+  animation-duration: 26s;
+  background-image:
+    radial-gradient(ellipse at 65% 35%, rgba(212,168,67,.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 70%, rgba(123,198,126,.1) 0%, transparent 50%);
+  opacity: 1;
+}
+@keyframes bg-drift {
+  0%   { transform: translateX(-20%) translateY(-4%); }
+  100% { transform: translateX(20%)  translateY(4%); }
+}
+
+/* ════════════════════════════════════════
+   SIDEBAR NAV
+════════════════════════════════════════ */
+#sideNav {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background-color: var(--dark-brown);
+  border-right: 4px solid var(--golden);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* dot pattern overlay */
+#sideNav::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(212,168,67,.07) 1px, transparent 1px);
+  background-size: 14px 14px;
+  pointer-events: none;
+}
+
+.nav-portrait {
+  text-align: center;
+  padding: 1.5rem 1rem 1rem;
+  border-bottom: 2px dashed rgba(212,168,67,.3);
+}
+
+.portrait-img {
+  width: 80px; height: 80px;
+  border: 3px solid var(--golden);
+  border-radius: 0;
+  box-shadow: 3px 3px 0px rgba(212,168,67,.4);
+  object-fit: cover;
+}
+
+.portrait-name {
+  font-family: 'Pixelify Sans', monospace;
+  color: var(--golden);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.portrait-class {
+  font-family: 'Nunito', sans-serif;
+  color: rgba(243,213,163,.7);
+  font-size: 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 1rem 0;
+  margin: 0;
+  flex: 1;
+}
+
+.nav-menu li { margin: 0; }
+
+.nav-menu .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.78rem;
+  color: var(--warm-tan);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: color .15s, background .15s, border-left-color .15s;
+}
+
+.nav-cursor {
+  color: var(--golden);
+  font-size: 0.6rem;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.nav-menu .nav-link:hover,
+.nav-menu .nav-link.active {
+  color: var(--golden);
+  background: rgba(212,168,67,.08);
+  border-left-color: var(--golden);
+}
+
+.nav-menu .nav-link:hover .nav-cursor,
+.nav-menu .nav-link.active .nav-cursor {
+  opacity: 1;
+}
+
+.nav-stars {
+  text-align: center;
+  color: rgba(212,168,67,.4);
+  font-size: 0.7rem;
+  letter-spacing: 0.5rem;
+  padding: 1rem;
+  border-top: 2px dashed rgba(212,168,67,.2);
+}
+
+/* ════════════════════════════════════════
+   MAIN + SECTIONS
+════════════════════════════════════════ */
+#main-content {
+  min-height: 100vh;
+}
+
+.game-section {
+  padding: 5rem 3rem 4rem;
+  max-width: 68rem;
+  position: relative;
+}
+
+/* divider between sections */
+.game-section + .game-section::before {
+  content: '';
+  display: block;
+  border-top: 3px dashed rgba(139,99,73,.25);
+  margin-bottom: 0rem;
+  position: absolute;
+  top: 0; left: 3rem; right: 3rem;
+}
+
+/* ════════════════════════════════════════
+   SECTION HEADERS
+════════════════════════════════════════ */
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.8rem;
+  color: var(--forest-green);
+  white-space: nowrap;
+  margin: 0;
+  text-shadow: 2px 2px 0px rgba(74,124,89,.2);
+}
+
+.section-title-line {
+  flex: 1;
+  height: 3px;
+  background: linear-gradient(to right, var(--golden), transparent);
+  border-radius: 0;
+}
+
+/* ════════════════════════════════════════
+   GAME PANEL (Character Sheet)
+════════════════════════════════════════ */
+.game-panel {
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow:
+    0 0 0 2px var(--cream),
+    0 0 0 5px var(--dark-brown),
+    6px 6px 0px var(--dark-brown);
+  padding: 0;
+  max-width: 56rem;
+}
+
+.panel-header {
+  background: var(--dark-brown);
+  color: var(--golden);
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 1.2rem;
+  border-bottom: var(--panel-border);
+}
+
+.character-layout {
+  display: flex;
+  gap: 0;
+}
+
+.character-left {
+  width: 200px;
+  flex-shrink: 0;
+  border-right: 3px solid var(--dark-brown);
+  background: rgba(243,213,163,.3);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.character-portrait-wrap {
+  width: 120px; height: 120px;
+  border: 3px solid var(--dark-brown);
+  box-shadow: var(--pixel-shadow);
+  overflow: hidden;
+  background: var(--warm-tan);
+}
+
+.character-portrait {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.character-meta { width: 100%; }
+
+.char-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.3rem 0;
+  border-bottom: 1px dashed rgba(139,99,73,.2);
+  font-size: 0.78rem;
+}
+.char-stat-row:last-child { border-bottom: none; }
+
+.char-label {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.65rem;
+  color: var(--earth-brown);
+  letter-spacing: 0.06em;
+}
+
+.char-val {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-align: right;
+  max-width: 9rem;
+}
+
+.character-right {
+  flex: 1;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.char-name {
+  font-size: 2.4rem;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--dark-brown);
+}
+
+/* Dialog box */
+.dialog-box {
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow: 3px 3px 0px var(--earth-brown);
+  padding: 0.75rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--earth-brown);
+  position: relative;
+}
+
+.dialog-box::before {
+  content: '▶';
+  position: absolute;
+  left: -1.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--golden);
+  font-size: 0.75rem;
+}
+
+.dialog-label { color: var(--earth-brown); }
+
+/* Typed cursor */
+.typed-cursor { color: var(--golden); }
+
+.social-row { display: flex; gap: 0.75rem; }
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem; height: 2.5rem;
+  background: var(--earth-brown);
+  color: var(--cream);
+  border: var(--panel-border);
+  box-shadow: 3px 3px 0px var(--dark-brown);
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform .1s, box-shadow .1s, background .15s;
+}
+.social-btn:hover {
+  background: var(--forest-green);
+  color: var(--cream);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--dark-brown);
+}
+
+/* ════════════════════════════════════════
+   QUEST CARDS (Experience / Volunteer)
+════════════════════════════════════════ */
+.quest-card {
+  background: var(--cream);
+  border: var(--panel-border);
+  border-left: 5px solid var(--golden);
+  box-shadow: 4px 4px 0px rgba(61,43,31,.15);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: border-left-color .15s, box-shadow .15s;
+}
+.quest-card:hover {
+  border-left-color: var(--forest-green);
+  box-shadow: 4px 4px 0px rgba(74,124,89,.2);
+}
+.quest-card:last-child { margin-bottom: 0; }
+
+.quest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.quest-left { flex: 1; }
+
+.quest-badge {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.5rem;
+  border: 2px solid;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+.quest-badge.active {
+  color: var(--forest-green);
+  border-color: var(--forest-green);
+  background: rgba(74,124,89,.08);
+}
+.quest-badge.done {
+  color: var(--earth-brown);
+  border-color: rgba(139,99,73,.5);
+  background: rgba(139,99,73,.06);
+}
+
+.quest-title {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.15rem;
+  color: var(--dark-brown);
+  margin: 0 0 0.2rem;
+}
+
+.quest-org {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--earth-brown);
+}
+
+.quest-date {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.7rem;
+  color: var(--golden-dark);
+  background: rgba(212,168,67,.12);
+  border: 2px solid rgba(212,168,67,.4);
+  padding: 0.2rem 0.6rem;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.quest-skills {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--forest-green);
+  background: rgba(74,124,89,.06);
+  border-left: 3px solid var(--forest-green);
+  padding: 0.25rem 0.6rem;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.quest-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.88rem;
+  color: var(--dark-brown);
+}
+.quest-list li { margin-bottom: 0.3rem; }
+.quest-list li::marker { color: var(--golden); }
+
+/* ════════════════════════════════════════
+   INVENTORY / PROJECT CARDS
+════════════════════════════════════════ */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.item-card {
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow: var(--pixel-shadow);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+  display: flex;
+  flex-direction: column;
+}
+.item-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px var(--dark-brown);
+  border-color: var(--forest-green);
+}
+
+.item-img-wrap {
+  position: relative;
+  border-bottom: 3px solid var(--dark-brown);
+  overflow: hidden;
+  height: 160px;
+  background: var(--warm-tan);
+}
+
+.item-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .2s;
+}
+.item-card:hover .item-img { transform: scale(1.04); }
+
+.item-rarity {
+  position: absolute;
+  top: 0.4rem; right: 0.4rem;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.4rem;
+  border: 2px solid;
+}
+.item-rarity.rare    { color: #9b7ec8; border-color: #9b7ec8; background: rgba(155,126,200,.1); }
+.item-rarity.uncommon{ color: var(--forest-green); border-color: var(--forest-green); background: rgba(74,124,89,.1); }
+.item-rarity.common  { color: var(--earth-brown); border-color: var(--earth-brown); background: rgba(139,99,73,.1); }
+
+.item-body {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item-name {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--dark-brown);
+}
+.item-name a { color: var(--dark-brown); }
+.item-name a:hover { color: var(--forest-green); }
+
+.item-desc {
+  font-size: 0.8rem;
+  color: var(--earth-brown);
+  flex: 1;
+  line-height: 1.5;
+}
+
+.item-tags {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--forest-green);
+  border-top: 2px dashed rgba(74,124,89,.3);
+  padding-top: 0.4rem;
+}
+
+/* ════════════════════════════════════════
+   ARCHIVES / EDUCATION
+════════════════════════════════════════ */
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.archive-card {
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow: var(--pixel-shadow);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  position: relative;
+}
+
+.archive-badge {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.1rem;
+  color: var(--golden-dark);
+  background: rgba(212,168,67,.15);
+  border: 3px solid var(--golden);
+  width: 3rem; height: 3rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0px var(--golden-dark);
+}
+
+.archive-logo {
+  width: 60px; height: 60px;
+  object-fit: contain;
+  border: 2px solid var(--earth-brown);
+  background: white;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.archive-body { flex: 1; }
+
+.archive-school {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.95rem;
+  color: var(--dark-brown);
+  margin-bottom: 0.2rem;
+}
+
+.archive-degree {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--earth-brown);
+  margin-bottom: 0.3rem;
+}
+
+.archive-date {
+  font-size: 0.8rem;
+  color: var(--forest-green);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.archive-courses {
+  font-size: 0.78rem;
+  color: var(--dark-brown);
+  line-height: 1.6;
+  border-left: 3px solid var(--golden);
+  padding-left: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.archive-activities {
+  font-size: 0.75rem;
+  color: var(--earth-brown);
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════
+   STATS / SKILLS
+════════════════════════════════════════ */
+.stats-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stats-panel {
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow: var(--pixel-shadow);
+  padding: 1.25rem 1.25rem;
+}
+
+.stats-group-title {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.8rem;
+  color: var(--forest-green);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--golden);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+}
+
+.stat-name {
+  width: 8rem;
+  flex-shrink: 0;
+  color: var(--dark-brown);
+  font-weight: 600;
+}
+
+.stat-bar {
+  flex: 1;
+  height: 10px;
+  background: rgba(139,99,73,.15);
+  border: 2px solid var(--earth-brown);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  background: var(--forest-green);
+  position: relative;
+  transition: width 1.2s ease;
+}
+.stat-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 6px,
+    rgba(255,255,255,.2) 6px,
+    rgba(255,255,255,.2) 8px
+  );
+}
+
+.stat-fill.ability {
+  background: linear-gradient(90deg, var(--golden-dark), var(--golden));
+}
+
+.stat-num {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.7rem;
+  width: 2rem;
+  text-align: right;
+  color: var(--earth-brown);
+  flex-shrink: 0;
+}
+.stat-num.gold { color: var(--golden-dark); }
+
+/* Icon shelf */
+.icon-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow: var(--pixel-shadow);
+  padding: 1.25rem;
+}
+
+.icon-shelf i {
+  font-size: 2.4rem;
+  color: var(--earth-brown);
+  transition: color .15s, transform .15s;
+  cursor: default;
+}
+.icon-shelf i:hover {
+  color: var(--forest-green);
+  transform: translateY(-3px);
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  background: var(--dark-brown);
+  color: var(--warm-tan);
+  border-top: 4px solid var(--golden);
+  padding: 1.5rem 3rem;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-stars { color: rgba(212,168,67,.5); letter-spacing: 0.4rem; }
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media (max-width: 992px) {
+  body { padding-left: 0; padding-top: 3.5rem; }
+
+  #sideNav {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 4px solid var(--golden);
+    position: fixed;
+    top: 0; left: 0;
+    padding: 0.4rem 1rem;
+  }
+
+  .nav-portrait { display: none; }
+  .nav-stars { display: none; }
+  #sideNav::after { display: none; }
+
+  .nav-menu {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    gap: 0;
+  }
+
+  .nav-menu .nav-link {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.6rem;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-menu .nav-link:hover,
+  .nav-menu .nav-link.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--golden);
+  }
+
+  .nav-cursor { display: none; }
+
+  .game-section { padding: 3rem 1.25rem 2.5rem; }
+  .game-section + .game-section::before { left: 1.25rem; right: 1.25rem; }
+
+  .character-layout { flex-direction: column; }
+  .character-left { width: 100%; flex-direction: row; border-right: none; border-bottom: 3px solid var(--dark-brown); }
+  .character-portrait-wrap { width: 80px; height: 80px; }
+  .character-meta { flex: 1; }
+
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .char-name { font-size: 1.8rem; }
+  .section-title { font-size: 1.4rem; }
+  .stats-layout { grid-template-columns: 1fr; }
+  .archive-grid { grid-template-columns: 1fr; }
+  .inventory-grid { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════════════
+   SUBPAGE COMPONENTS
+════════════════════════════════════════ */
+
+/* Quest bullets (simpler than quest-list) */
+.quest-bullets {
+  padding-left: 1.25rem;
+  font-size: 0.88rem;
+  color: var(--dark-brown);
+  margin: 0;
+}
+.quest-bullets li { margin-bottom: 0.28rem; }
+.quest-bullets li::marker { color: var(--golden); }
+
+/* Archive cards (education) */
+.archive-card {
+  background: var(--cream);
+  border: var(--panel-border);
+  box-shadow: var(--pixel-shadow);
+  padding: 1.5rem;
+}
+
+.archive-layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.archive-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border: 3px solid var(--dark-brown);
+  background: #fff;
+  padding: 6px;
+  box-shadow: 3px 3px 0 var(--dark-brown);
+  flex-shrink: 0;
+}
+
+.archive-degree {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.1rem;
+  color: var(--dark-brown);
+  margin: 0 0 0.25rem;
+}
+
+.archive-school {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--earth-brown);
+  margin-bottom: 0.4rem;
+}
+
+.archive-meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+
+.archive-gpa {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.7rem;
+  color: var(--forest-green);
+  background: rgba(74,124,89,.1);
+  border: 2px solid rgba(74,124,89,.35);
+  padding: 0.15rem 0.55rem;
+}
+
+.archive-desc {
+  font-size: 0.88rem;
+  color: var(--dark-brown);
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+}
+
+.archive-courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.archive-tag {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.6rem;
+  background: rgba(212,168,67,.12);
+  border: 2px solid rgba(212,168,67,.4);
+  color: var(--golden-dark);
+  padding: 0.15rem 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .archive-layout { flex-direction: column; }
+  .archive-logo { width: 56px; height: 56px; }
+}
+
+/* Stat bars (skills page) */
+.stat-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.stat-bar-label {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.72rem;
+  color: var(--dark-brown);
+  width: 160px;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+.stat-bar-wrap {
+  flex: 1;
+  height: 14px;
+  background: rgba(61,43,31,.12);
+  border: 2px solid var(--dark-brown);
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  position: relative;
+  transition: width 1.2s ease;
+}
+
+.stat-fill.ability {
+  background: linear-gradient(90deg, var(--golden-dark), var(--golden));
+}
+
+.stat-fill.tool {
+  background: linear-gradient(90deg, var(--forest-green), var(--bright-green));
+}
+
+.stat-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent, transparent 6px,
+    rgba(255,255,255,.18) 6px, rgba(255,255,255,.18) 8px
+  );
+}
+
+.stat-num {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.68rem;
+  color: var(--earth-brown);
+  width: 24px;
+  text-align: right;
+}
+
+/* Skill chips */
+.skill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.skill-chip {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  background: var(--cream);
+  border: 2px solid var(--dark-brown);
+  box-shadow: 2px 2px 0 var(--dark-brown);
+  padding: 0.3rem 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--dark-brown);
+  transition: transform .1s, background .12s;
+}
+.skill-chip:hover {
+  background: var(--warm-tan);
+  transform: translate(-1px, -1px);
+}
+.skill-chip i { font-size: 1rem; }
+
+/* Social btn: wider on subpages */
+body.subpage .social-btn {
+  width: auto;
+  padding: 0 1rem;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+/* Item card desc */
+.item-desc {
+  font-size: 0.83rem;
+  color: var(--dark-brown);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 0.75rem;
+}
+
+.item-links { margin-top: auto; }
+
+.item-link {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 0.68rem;
+  color: var(--forest-green);
+  text-decoration: none;
+  border: 2px solid var(--forest-green);
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  transition: background .12s, color .12s;
+}
+.item-link:hover {
+  background: var(--forest-green);
+  color: #fff;
+}
+
+/* Character sheet role text */
+.typed-roles {
+  font-family: 'Pixelify Sans', monospace;
+  color: var(--forest-green);
+  font-size: 1rem;
+}

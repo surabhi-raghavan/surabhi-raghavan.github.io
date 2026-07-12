@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Character Sheet · Surabhi Raghavan</title>
+ <link rel="icon" href="assets/favicon.ico" />
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+ <link rel="stylesheet" href="css/styles.css" />
+ <link rel="stylesheet" href="css/subpage.css" />
+ <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body class="subpage">
+<nav class="sub-nav">
+ <a href="index.html" class="back-btn">◄ Return to Map</a>
+ <span class="page-title">ABOUT</span>
+ <div class="nav-links">
+ <a href="experience.html"> Experience</a>
+ <a href="projects.html"> Projects</a>
+ <a href="education.html"> Education</a>
+ <a href="skills.html"> Skills</a>
+ <a href="volunteer.html"> Volunteer</a>
+ </div>
+</nav>
+
+<div class="sub-main">
+ <div class="section-header">
+ <span class="section-emoji"></span>
+ <div>
+ <h1>About</h1>
+ <div class="section-sub">Software Engineer · Pittsburgh, PA</div>
+ </div>
+ </div>
+
+ <div class="game-panel" data-aos="fade-up">
+ <div class="panel-header"> Character Sheet</div>
+ <div class="character-layout">
+ <div class="character-left">
+ <div class="portrait-frame">
+ <img src="assets/profile.svg" alt="Surabhi Raghavan" />
+ </div>
+ <div class="stat-row"><span class="stat-label">Class</span><span class="stat-value">Software Engineer</span></div>
+ <div class="stat-row"><span class="stat-label">Guild</span><span class="stat-value">MoSHI @ Pitt</span></div>
+ <div class="stat-row"><span class="stat-label">Degree</span><span class="stat-value">MS Info Science</span></div>
+ <div class="stat-row"><span class="stat-label">Base</span><span class="stat-value">Pittsburgh, PA</span></div>
+ <div class="stat-row"><span class="stat-label">GPA</span><span class="stat-value gold">3.93 / 4.0</span></div>
+ </div>
+ <div class="character-right">
+ <h1 class="char-name">Surabhi Raghavan</h1>
+ <div class="char-title">
+ <span class="intro-fixed">I'm a </span>
+ <span id="typed-roles" class="typed-roles"></span>
+ </div>
+ <div class="dialog-box">
+ <p>Hey! I'm a Software Engineer and MS Information Science student at the University of Pittsburgh, currently building ROSA — a real-time remote monitoring app for chemotherapy patients — at the Mobile Sensing + Health Institute.</p>
+ <p style="margin-top:.6rem;">My work lives at the intersection of ML, mobile health, and full-stack engineering. I love building things that actually matter — from anomaly detection pipelines to multilingual LLM safety classifiers. I'm also a published researcher (SynthData @ ICLR 2025)! </p>
+ </div>
+ <div class="social-row">
+ <a href="mailto:surabhiraghavanofficial@gmail.com" class="social-btn"><i class="fas fa-envelope"></i> Email</a>
+ <a href="https://linkedin.com/in/surabhi-raghavan" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+ <a href="https://github.com/surabhi-raghavan" target="_blank" class="social-btn"><i class="fab fa-github"></i> GitHub</a>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+ AOS.init({ once: true, duration: 500, offset: 40 });
+ new Typed('#typed-roles', {
+ strings: ['Software Engineer.', 'ML Researcher.', 'Full-Stack Developer.', 'Published Author.'],
+ typeSpeed: 55, backSpeed: 30, loop: true, backDelay: 1800
+ });
+</script>
+</body>
+</html>

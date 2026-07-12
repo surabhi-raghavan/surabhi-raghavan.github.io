@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Nunito:wght@400;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Pixelify Sans', monospace;
+  overflow: hidden;
+  background: #0e1a0c;
+  user-select: none;
+}
+
+/* ── CANVAS ── */
+#game-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw; height: 100vh;
+  display: block;
+  cursor: pointer;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ── PLAYER CANVAS ── */
+#player-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw; height: 100vh;
+  z-index: 30;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ── HUD ── */
+#hud-title {
+  position: fixed; top: 1rem; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #281808, #180c04);
+  color: #d4a843;
+  border: 2px solid #d4a843;
+  border-top: 3px solid #f0c860;
+  box-shadow: 0 0 0 1px #6b4a1e, 3px 3px 0 #080402, 0 4px 24px rgba(0,0,0,.5);
+  padding: .35rem 1.8rem;
+  font-size: .9rem;
+  letter-spacing: .15em;
+  z-index: 100;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(212,168,67,.4);
+}
+
+#hud-controls {
+  position: fixed; bottom: 1rem; right: 1.25rem;
+  background: rgba(15,8,3,.88);
+  border: 1px solid rgba(212,168,67,.22);
+  color: rgba(212,168,67,.55);
+  font-size: .52rem; letter-spacing: .06em;
+  padding: .4rem .7rem;
+  z-index: 100; line-height: 1.9;
+}
+
+/* ── PROMPT ── */
+#prompt {
+  position: fixed; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #281808, #180c04);
+  color: #f5e8c8;
+  border: 2px solid #d4a843;
+  box-shadow: 0 0 0 1px #6b4a1e, 4px 4px 0 #080402;
+  padding: .58rem 2rem;
+  font-size: .78rem; letter-spacing: .08em;
+  z-index: 100;
+  display: none;
+  animation: pglow 1.2s ease-in-out infinite;
+}
+.key-hint {
+  background: #d4a843; color: #160800;
+  padding: 1px 5px; margin-right: .5rem;
+  font-weight: bold; font-size: .7rem;
+}
+@keyframes pglow {
+  0%,100%{ box-shadow: 0 0 0 1px #6b4a1e, 4px 4px 0 #080402, 0 0 8px rgba(212,168,67,.1); }
+  50%    { box-shadow: 0 0 0 1px #6b4a1e, 4px 4px 0 #080402, 0 0 22px rgba(212,168,67,.4); }
+}
+
+/* ── TOAST ── */
+#location-toast {
+  position: fixed; top: 4.2rem; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15,8,3,.9);
+  color: #e8dcc8;
+  border: 1px solid rgba(212,168,67,.28);
+  padding: .28rem 1rem;
+  font-size: .65rem; letter-spacing: .08em;
+  z-index: 100; opacity: 0; transition: opacity .25s;
+  pointer-events: none;
+}
+#location-toast.show { opacity: 1; }
+
+/* ── HTML LABELS (crisp text over canvas) ── */
+#labels-container {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+}
+.bld-label {
+  position: absolute;
+  transform: translateX(-50%);
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f5e8c8;
+  background: rgba(20,10,4,.78);
+  padding: 2px 7px 3px;
+  border: 1px solid rgba(212,168,67,.35);
+  white-space: nowrap;
+  letter-spacing: .05em;
+}
+#dog-name-tag {
+  position: fixed;
+  transform: translateX(-50%);
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #f5e8c8;
+  background: rgba(20,10,4,.8);
+  padding: 1px 5px 2px;
+  border: 1px solid rgba(212,168,67,.4);
+  white-space: nowrap;
+  z-index: 40;
+  pointer-events: none;
+  letter-spacing: .04em;
+}
+
+#player-name-tag {
+  position: fixed;
+  transform: translateX(-50%);
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #f5e8c8;
+  background: rgba(20,10,4,.8);
+  padding: 1px 6px 2px;
+  border: 1px solid rgba(212,168,67,.5);
+  white-space: nowrap;
+  z-index: 40;
+  pointer-events: none;
+  letter-spacing: .04em;
+}
+
+/* ── MUSIC BUTTON ── */
+#music-btn {
+  position: fixed; bottom: 1rem; left: 1.25rem;
+  background: rgba(15,8,3,.88);
+  border: 1px solid rgba(212,168,67,.35);
+  color: rgba(212,168,67,.6);
+  font-size: 1rem;
+  width: 32px; height: 32px;
+  cursor: pointer;
+  font-family: 'Pixelify Sans', monospace;
+  z-index: 100;
+  transition: color .2s, border-color .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+#music-btn:hover { color: #d4a843; border-color: rgba(212,168,67,.7); }
+#music-btn.on { color: #d4a843; border-color: rgba(212,168,67,.6); }
+
+/* ── FADE ── */
+#fade {
+  position: fixed; inset: 0;
+  background: #0a0402;
+  opacity: 0; z-index: 200;
+  pointer-events: none;
+  transition: opacity .35s;
+}
+#fade.visible { opacity: 1; pointer-events: all; }
+
+/* ── MOBILE D-PAD ── */
+#dpad { position: fixed; bottom: 2rem; left: 2rem; z-index: 100; display: none; }
+#dpad button {
+  position: absolute;
+  width: 46px; height: 46px;
+  background: rgba(15,8,3,.9);
+  border: 2px solid rgba(212,168,67,.5);
+  color: #d4a843; font-size: 1rem;
+  cursor: pointer; font-family: 'Pixelify Sans', monospace;
+  touch-action: manipulation;
+}
+#dpad button:active { background: rgba(212,168,67,.25); }
+#dpad-up    { top:0;    left:46px; }
+#dpad-down  { top:92px; left:46px; }
+#dpad-left  { top:46px; left:0; }
+#dpad-right { top:46px; left:92px; }
+#dpad-enter { top:46px; left:46px; font-size:.52rem; }
+@media (max-width:768px),(pointer:coarse) { #dpad{display:block} #hud-controls{display:none} }
