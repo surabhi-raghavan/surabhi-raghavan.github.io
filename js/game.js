@@ -208,7 +208,7 @@
   function playerHit(x, y) {
     return { x: x+1, y: y+10, w: 6, h: 4 };
   }
-  // Building collision rect: walls + roof, shrunk 1px inward on sides
+  // Building collision rect: full height roof tip to wall bottom
   function bldHit(b) {
     var rh = b.roofH || 20;
     return { x: b.x+1, y: b.y, w: b.w-2, h: rh + b.wallH };
@@ -217,11 +217,29 @@
     return a.x < b.x+b.w && a.x+a.w > b.x &&
            a.y < b.y+b.h && a.y+a.h > b.y;
   }
+
+  // Static obstacle zones: trees (canopy trunk area) + pond
+  // Tree positions from mapRenderer: drawTree(tx, ty) — trunk at tx-1,ty+10; canopy tx-8 to tx+9
+  var STATIC_COLLIDERS = (function() {
+    var trees = [[8,62],[8,82],[8,118],[8,136],[388,62],[388,85],[388,118],[388,138],
+      [14,14],[78,8],[318,8],[378,14],[12,192],[72,202],[322,202],[378,192],
+      [132,48],[254,44],[132,152],[254,156]];
+    var rects = trees.map(function(t) {
+      return { x: t[0]-6, y: t[1]+8, w: 13, h: 9 }; // trunk + low canopy base
+    });
+    // Pond: px=250, py=190, pw=38, ph=22
+    rects.push({ x: 250, y: 190, w: 38, h: 22 });
+    return rects;
+  })();
+
   function blocked(x, y) {
     var ph = playerHit(x, y);
     var buildings = MAP.getBuildings();
     for (var i = 0; i < buildings.length; i++) {
       if (overlaps(ph, bldHit(buildings[i]))) return true;
+    }
+    for (var j = 0; j < STATIC_COLLIDERS.length; j++) {
+      if (overlaps(ph, STATIC_COLLIDERS[j])) return true;
     }
     return false;
   }
