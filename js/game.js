@@ -203,6 +203,29 @@
     toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2000);
   }
 
+  // ── collision ─────────────────────────────────────────────────────────────
+  // Player hitbox: a small rect at the feet
+  function playerHit(x, y) {
+    return { x: x+1, y: y+10, w: 6, h: 4 };
+  }
+  // Building collision rect: walls + roof, shrunk 1px inward on sides
+  function bldHit(b) {
+    var rh = b.roofH || 20;
+    return { x: b.x+1, y: b.y, w: b.w-2, h: rh + b.wallH };
+  }
+  function overlaps(a, b) {
+    return a.x < b.x+b.w && a.x+a.w > b.x &&
+           a.y < b.y+b.h && a.y+a.h > b.y;
+  }
+  function blocked(x, y) {
+    var ph = playerHit(x, y);
+    var buildings = MAP.getBuildings();
+    for (var i = 0; i < buildings.length; i++) {
+      if (overlaps(ph, bldHit(buildings[i]))) return true;
+    }
+    return false;
+  }
+
   // ── game loop ─────────────────────────────────────────────────────────────
   function gameLoop() {
     var dx=0, dy=0;
@@ -213,8 +236,11 @@
     if (dx!==0 && dy!==0) { dx*=0.707; dy*=0.707; }
     player.moving = dx!==0 || dy!==0;
 
-    player.x = Math.max(0, Math.min(LW-8, player.x+dx));
-    player.y = Math.max(0, Math.min(LH-14, player.y+dy));
+    // Axis-separated collision so player slides along building walls
+    var nx = Math.max(0, Math.min(LW-8, player.x+dx));
+    var ny = Math.max(0, Math.min(LH-14, player.y+dy));
+    if (!blocked(nx, player.y)) player.x = nx;
+    if (!blocked(player.x, ny)) player.y = ny;
 
     frame++;  // always advance for dog + player animation
 
