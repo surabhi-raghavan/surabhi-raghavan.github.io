@@ -283,6 +283,56 @@ body {
 #music-btn:hover { color: #d4a843; border-color: rgba(212,168,67,.7); }
 #music-btn.on { color: #d4a843; border-color: rgba(212,168,67,.6); }
 
+/* ── LAUNCHER / PAINTBRUSH INTRO ── */
+#launcher {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  z-index: 500;
+  pointer-events: all;
+}
+
+#launcher-title {
+  position: fixed; inset: 0;
+  z-index: 501;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.6s;
+}
+#launcher-title.fade-out { opacity: 0; }
+
+#launcher-title .lt-main {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: clamp(1.2rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #d4a843;
+  letter-spacing: .22em;
+  text-shadow: 0 0 40px rgba(212,168,67,.7), 0 0 80px rgba(212,168,67,.3);
+  animation: lt-pulse 1.8s ease-in-out infinite;
+}
+#launcher-title .lt-sub {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: clamp(0.65rem, 1.8vw, 1rem);
+  color: rgba(212,168,67,.45);
+  letter-spacing: .18em;
+  margin-top: .9rem;
+}
+@keyframes lt-pulse {
+  0%,100% { text-shadow: 0 0 40px rgba(212,168,67,.7), 0 0 80px rgba(212,168,67,.3); }
+  50%      { text-shadow: 0 0 60px rgba(212,168,67,.9), 0 0 120px rgba(212,168,67,.5); }
+}
+
+#launcher-brush {
+  position: fixed;
+  font-size: 1.8rem;
+  z-index: 502;
+  pointer-events: none;
+  transform: translate(-50%, -100%) rotate(-25deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
+}
+
 /* ── FADE ── */
 #fade {
   position: fixed; inset: 0;
